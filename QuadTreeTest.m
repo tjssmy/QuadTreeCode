@@ -18,7 +18,7 @@ a = 2*pi/Xmax;
 b = 3*pi/Ymax;
 kQTFct = sin(a*xm).*sin(b*ym);
 kQTFct = max(kQTFct,0);
-surface(xv,yv,kQTFct','EdgeColor','none');
+surface(xv,yv,kQTFct'-1,'EdgeColor','none');
 
 nxb = 4;
 nyb = 6;
@@ -28,5 +28,8 @@ CreateInitQTBlocks(Xmax,Ymax,nxb,nyb);
 DrawQTBlocks(1)
 
 RefineQTBlocks(6,0.1)
+
+hold on
+DrawQTNodes();        
 
 DrawQTBlocks(0)
