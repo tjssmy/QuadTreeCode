@@ -1,7 +1,6 @@
 function DrawQTNodes()
 
 QTGlobals
-EraseQTMesh
 
 x  = zeros(1,nBlocks);
 y = zeros(1,nBlocks);

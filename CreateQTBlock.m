@@ -12,6 +12,16 @@ block.br(RIGHT) = kright;
 block.br(DOWN) = kdown;
 block.br(UP) = kup;
 
+[i1,i2,j1,j2] = GetQTKfctRange(x,y,dx/2,dy/2);
+
+kMap = kQTFct(i1:i2,j1:j2);
+
+meanK = mean(mean(kMap));
+
+
+block.data(KVAL) = meanK;
+block.data(VVAL) = 0;
+
 block.br(MAX_NUM_BR) = 0;
 
 block.size = 1;

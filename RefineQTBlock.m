@@ -9,17 +9,7 @@ dy2 = block.dy/2;
 x = block.x;
 y = block.y;
 
-x1 = x - dx2;
-x2 = x + dx2;
-y1 = y - dy2;
-y2 = y + dy2;
-
-i1 = max(1,floor(x1/kQTdx));
-i2 = min(kQTnx,ceil(x2/kQTdx));
-
-j1 = max(1,floor(y1/kQTdy));
-j2 = min(kQTny,ceil(y2/kQTdy));
-
+[i1,i2,j1,j2] = GetQTKfctRange(x,y,dx2,dy2);
 
 kMap = kQTFct(i1:i2,j1:j2);
 
