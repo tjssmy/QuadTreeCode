@@ -13,12 +13,16 @@ y = block.y;
 
 kMap = kQTFct(i1:i2,j1:j2);
 
+
 maxK = max(max(kMap));
 minK = min(min(kMap));
 
 delK = maxK-minK;
 
-if (delK > kThresh) % needs to be broken into 4
+sVal = min(min(QTSmap(i1:i2,j1:j2)));
+
+if (delK > kThresh || ...
+        block.dx > sVal || block.dy > sVal) % needs to be broken into 4
     CutQTBlock(b);
 end
 
