@@ -1,14 +1,14 @@
-function SetQTBVec(LeftBC,RightBC,UpBC,DownBC,IntBC)
+function [IntBC] = SetQTBVec(LeftBC,RightBC,UpBC,DownBC,IntBC)
 
 QTGlobals
 
 for b=1:nBlocks
-    SetQTBVecBlock(Blocks{b},RightBC,LeftBC,UpBC,DownBC,IntBC);
+    IntBC = SetQTBVecBlock(Blocks{b},RightBC,LeftBC,UpBC,DownBC,IntBC);
 end
 
 end
 
-function SetQTBVecBlock(block,RightBC,LeftBC,UpBC,DownBC,IntBC)
+function [IntBC] = SetQTBVecBlock(block,RightBC,LeftBC,UpBC,DownBC,IntBC)
 
 QTGlobals
 
@@ -17,14 +17,39 @@ dy = block.dy;
 k1 = block.data(KVAL);
 n = block.k;
 
+
 if ~isempty(IntBC)
     for i = 1:length(IntBC)
-        if block.x >= IntBC(i).geo(1) && block.x <= IntBC(i).geo(2) && ...
-                block.y >= IntBC(i).geo(3) && block.y <= IntBC(i).geo(4)
-            QTBVec(n) = IntBC(i).val;
-            QTGMat(n,:) = 0;
-            QTGMat(n,n) = 1;
-            return
+        found = 0;
+        if IntBC(i).geo == 'r'
+            if block.x >= IntBC(i).gp(1) && block.x <= IntBC(i).gp(2) && ...
+                    block.y >= IntBC(i).gp(3) && block.y <= IntBC(i).gp(4)
+                found = 1;
+            end
+        elseif IntBC(i).geo == 'c'
+            dx = block.x-IntBC(i).gp(1);
+            dy = block.y-IntBC(i).gp(2);
+            if  dx^2 + dy^2 < IntBC(i).gp(3)^2
+                found = 1;
+            end
+        end
+        
+        if found
+            
+            IntBC(i).blocks(end+1) = n;
+            
+            if IntBC(i).mode == 'v'
+                QTBVec(n) = IntBC(i).val(1);
+                QTGMat(n,:) = 0;
+                QTGMat(n,n) = 1;
+                return
+            elseif IntBC(i).mode == 'g'
+                QTGMat(n,n) = QTGMat(n,n) - IntBC(i).val(2);
+                QTBVec(n) = -IntBC(i).val(1)*IntBC(i).val(2);
+            elseif IntBC(i).mode == 'm'
+                QTGMat(n,n) = QTGMat(n,n) - IntBC(i).val(2);
+                QTBVec(n) = -IntBC(i).val(1)*IntBC(i).val(2) + IntBC(i).val(3);
+            end
         end
     end
 end

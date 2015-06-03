@@ -8,9 +8,9 @@ y1 = y - dy2;
 y2 = y + dy2;
 
 imin = max(1,floor(x1/kQTdx));
-imax = min(kQTnx,ceil(x2/kQTdx));
+imax = min(kQTnx,ceil(x2/kQTdx)+1);
 
 jmin = max(1,floor(y1/kQTdy));
-jmax = min(kQTny,ceil(y2/kQTdy));
+jmax = min(kQTny,ceil(y2/kQTdy)+1);
 
 end

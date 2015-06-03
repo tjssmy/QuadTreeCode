@@ -1,9 +1,10 @@
-function CreateInitQTBlocks(Xmax,Ymax,nx,ny)
+function CreateInitQTBlocks(nx,ny,drawfig)
 %CREATEINITBLOCKS -- initial uniform block creation
-global Blocks nBlocks;
+QTGlobals
 
-dx = Xmax/nx;
-dy = Ymax/ny;
+fprintf('Creating initial blocks ...')
+dx = QTXmax/nx;
+dy = QTYmax/ny;
 
 k = 1;
 for j=1:ny
@@ -44,6 +45,14 @@ for j=1:ny
 end
 
 nBlocks = k-1;
+
+if drawfig
+    figure
+    DrawQTBlocks(1,0,1,1,1)
+    title('Initial blocks');
+end
+
+fprintf('\n');
 
 end
 

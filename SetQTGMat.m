@@ -3,28 +3,28 @@ function SetQTGMat(LeftBC,RightBC,UpBC,DownBC)
 QTGlobals
 
 for b=1:nBlocks
-    SetQTGMatBlock(Blocks{b},RightBC,LeftBC,UpBC,DownBC);
+    SetQTGMatBlock(b,RightBC,LeftBC,UpBC,DownBC);
 end
 
 end
 
-function SetQTGMatBlock(block,RightBC,LeftBC,UpBC,DownBC)
+function SetQTGMatBlock(b,RightBC,LeftBC,UpBC,DownBC)
 
 QTGlobals
 
-dx = block.dx;
-dy = block.dy;
-k1 = block.data(KVAL);
-n = block.k;
+dx = Blocks{b}.dx;
+dy = Blocks{b}.dy;
+k1 = Blocks{b}.data(KVAL);
+n = Blocks{b}.k;
 
 Gtot = 0;
 
 for br = 1:MAX_NUM_BR
-    m = block.br(br);
+    m = Blocks{b}.br(br);
     if m
-        k2 = Blocks{block.br(br)}.data(KVAL);
-        dx2 = Blocks{block.br(br)}.dx;
-        dy2 = Blocks{block.br(br)}.dy;
+        k2 = Blocks{Blocks{b}.br(br)}.data(KVAL);
+        dx2 = Blocks{Blocks{b}.br(br)}.dx;
+        dy2 = Blocks{Blocks{b}.br(br)}.dy;
         
         if br <= RIGHT_MIN % left/right
             l1 = dx*0.5;     w1 = dy;
@@ -36,7 +36,7 @@ for br = 1:MAX_NUM_BR
         end
 
         r = 1/k1*l1/w1 + 1/k2*l2/w2;
-
+        Blocks{b}.res(br) = r;
         if r ~= 0
             gval = 1/r;
             Gtot = Gtot + gval;
@@ -56,6 +56,8 @@ for br = 1:MAX_NUM_BR
         else
             r = 0;
         end
+        
+        Blocks{b}.res(br) = r;
         
         if r~= 0
             gval = 1/r;
