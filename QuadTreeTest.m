@@ -38,12 +38,13 @@ GetQTFctGradAndFlow(1,'flow');
 
 PrintQTIntBCVals(IntBC)
 
+IntBC(3).trans = 1;
 IntBC(3).TransMode(1) = 'c';
-IntBC(3).valTrans(1,:) = [0];
+IntBC(3).valTrans{1} = [0];
 IntBC(3).TransMode(2) = 's';
-IntBC(3).valTrans(2,:) = [0.1,0,8e3];
+IntBC(3).valTrans{2} = [0.1,0,8e3]';
 IntBC(3).TransMode(3) = 's';
-IntBC(3).valTrans(3,:) = [0.1,0,-1000];
+IntBC(3).valTrans{3} = [0.1,0,-1000]';
 
 
-SolveQTTransSol(1,1e-3,1e-3,IntBCTrans)
+SolveQTTransSol(1,1e-3,1e-3,IntBC)

@@ -1,4 +1,4 @@
-function SolveQTTransSol(SimTime,dt,dtOut,IntBCTrans)
+function SolveQTTransSol(SimTime,dt,dtOut,IntBC)
 
 QTGlobals
 
@@ -19,7 +19,7 @@ Vo = QTVvec;
 n = ceil(SimTime/dt);
 for i = 1:n
     t = i*dt;
-    SetQTTransBVec(InstBC,t);
+    SetQTTransBVec(IntBC,t);
     QTVvec = U\(L\(Vo - dt*QTBVec));
     
     Vo = QTVvec;
