@@ -5,4 +5,4 @@ global LEFT_MIN RIGHT_MIN UP_MIN DOWN_MIN
 global MAX_NUM_BR QTXmax QTYmax QTFct
 global FigMesh kQTFct kQTnx kQTny  kQTdx kQTdy kQTColormap kQTColormapSize
 global QTGMat QTBVec kQTMax QTVvec kQTxv kQTyv QTSmap kQTxm kQTym QTFctFx QTFctFy
-global QTFctGx QTFctGy
+global QTFctGx QTFctGy QTGMatL QTGMatU
